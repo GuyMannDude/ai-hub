@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Hub — Platforms & APIs</title>
+  <meta name="description" content="Category page for AI Platforms & APIs with descriptions and quick links." />
+  <style>
+    :root{
+      /* SF Giants–inspired palette (commonly referenced) */
+      --giants-orange: #FD5A1E;
+      --giants-black: #27251F;
+      --giants-cream: #EFD19F; /* optional accent */
+      --bg: #0f0f10;
+      --text: #f5f5f5;
+      --muted: #c8c8c8;
+      --card: #141416;
+      --card-hover: #1b1c1f;
+      --chip: #2a2b30;
+      --ring: rgba(253, 90, 30, 0.45);
+      --shadow: 0 8px 24px rgba(0,0,0,0.35);
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, var(--bg), #0a0a0b 45%, #000 100%);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:18px 0 8px 0; border-bottom:1px solid #1f2023; margin-bottom:18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:14px;
+    }
+    .logo{
+      width:40px;height:40px; border-radius:12px;
+      background: radial-gradient(60% 60% at 50% 30%, var(--giants-orange), #b43d0e);
+      display:grid; place-items:center; color:#000; font-weight:800;
+      box-shadow: 0 0 0 2px #000 inset, 0 6px 24px rgba(253,90,30,0.35);
+    }
+    .title{font-size:22px; font-weight:800; letter-spacing:0.2px}
+    .subtitle{color:var(--muted); font-size:14px}
+    .tools{
+      display:flex; align-items:center; gap:10px;
+    }
+    .btn{
+      background: #111214; border:1px solid #1f2023; color:#eaeaea;
+      padding:10px 14px; border-radius:12px; cursor:pointer;
+      transition:.15s ease; box-shadow: var(--shadow);
+    }
+    .btn:hover{transform:translateY(-1px); border-color:var(--giants-orange)}
+    .btn.primary{background:var(--giants-orange); color:#000; border-color:transparent}
+    .category{
+      display:flex; flex-direction:column; gap:10px; margin:18px 0 24px 0;
+    }
+    .category h1{
+      font-size:26px; margin:0; letter-spacing:.3px;
+      background: linear-gradient(90deg, var(--text), var(--giants-cream));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .category .desc{color:var(--muted)}
+    .grid{
+      display:grid; grid-template-columns: repeat( auto-fill, minmax(270px, 1fr) );
+      gap:16px;
+    }
+    .card{
+      background: var(--card); border:1px solid #22242a; border-radius: var(--radius-xl);
+      padding:16px; display:flex; flex-direction:column; gap:12px;
+      transition: .18s ease; box-shadow: var(--shadow);
+    }
+    .card:hover{ transform: translateY(-2px); background: var(--card-hover); border-color: var(--giants-orange) }
+    .card-head{ display:flex; align-items:center; gap:12px }
+    .card-head img{
+      width:28px; height:28px; border-radius:8px; background:#000;
+      box-shadow: 0 0 0 2px #0003;
+    }
+    .card-head .name{ font-weight:700 }
+    .card-head .ext{ margin-left:auto; font-size:13px; color:var(--giants-cream) }
+    .desc{ color:#d9d9d9; font-size:14px }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px }
+    .chip{
+      background: var(--chip); border:1px solid #2f3036; color:#e0e0e0;
+      padding:6px 10px; border-radius:999px; font-size:12px;
+    }
+    .footer-note{
+      margin-top:28px; color:var(--muted); font-size:13px; text-align:center;
+    }
+    .searchbar{
+      position:relative; margin:10px 0 18px 0;
+    }
+    .searchbar input{
+      width:100%; padding:12px 14px 12px 40px;
+      background:#0e0f11; border:1px solid #1f2023; border-radius:14px; color:#eaeaea;
+      outline:none; transition: .15s ease;
+    }
+    .searchbar input:focus{ border-color: var(--giants-orange); box-shadow: 0 0 0 3px var(--ring) }
+    .searchbar .icon{
+      position:absolute; left:12px; top:50%; transform:translateY(-50%);
+      width:18px; height:18px; opacity:.8;
+    }
+    /* Small helper: stacked layout on narrow screens */
+    @media (max-width:520px){
+      .title{font-size:20px}
+      .category h1{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="title">AI Hub</div>
+          <div class="subtitle">Curated links • Platforms & APIs</div>
+        </div>
+      </div>
+      <div class="tools">
+        <button class="btn" id="toggleTheme" title="Toggle high-contrast">Contrast</button>
+        <a class="btn primary" href="./" title="Home">Home</a>
+      </div>
+    </header>
+
+    <section class="category">
+      <h1 id="category-title">Platforms & Model APIs</h1>
+      <p class="desc" id="category-desc">
+        Unified model endpoints and assistants you can call from your apps. Add/remove items by editing the
+        embedded JSON <code>categoryData</code> below; duplicate this file per category and change the title/description.
+      </p>
+    </section>
+
+    <div class="searchbar">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <input id="q" placeholder="Filter by name, tag, or 'plays well with'… (e.g., LangChain)" />
+    </div>
+
+    <main class="grid" id="grid"></main>
+    <div class="footer-note">
+      Tip: To add a site, scroll to the <strong>categoryData</strong> JSON (bottom of file) and append a new object.
+      Logos default to the site's favicon; you can override with a direct logo URL.
+    </div>
+  </div>
+
+  <!-- ========== EDIT BELOW THIS LINE TO ADD/REMOVE SITES ==========
+       How to add a site:
+       {
+         "name": "OpenRouter",
+         "url": "https://openrouter.ai/",
+         "logo": "",                // optional; leave blank to use favicon from the domain
+         "desc": "Unified API to hundreds of models; handles routing/fallbacks.",
+         "playsWith": ["OpenAI SDK", "LangChain", "LlamaIndex", "Open WebUI"],
+         "tags": ["API","Aggregator"]
+       }
+       ============================================================= -->
+  <script>
+    const categoryData = {
+      title: "Platforms & Model APIs",
+      description: "Unified model endpoints and assistants you can call from your apps. Add/remove items by editing the embedded JSON 'categoryData' below; duplicate this file per category and change the title/description.",
+      items: [
+        {
+          "name": "OpenRouter",
+          "url": "https://openrouter.ai/",
+          "logo": "",
+          "desc": "Unified API to hundreds of models with routing & fallbacks; OpenAI-compatible.",
+          "playsWith": ["OpenAI SDK","LangChain","LlamaIndex","Open WebUI"],
+          "tags": ["API","Aggregator"]
+        },
+        {
+          "name": "ChatGPT",
+          "url": "https://chatgpt.com/",
+          "logo": "",
+          "desc": "Conversational assistant by OpenAI; widely supported by OpenAI-compatible SDKs.",
+          "playsWith": ["OpenAI SDK","Zapier","Raycast"],
+          "tags": ["Assistant","Chat"]
+        },
+        {
+          "name": "Claude",
+          "url": "https://claude.ai/",
+          "logo": "",
+          "desc": "Anthropic’s assistant with strong reasoning and long-context support.",
+          "playsWith": ["OpenRouter","LangChain"],
+          "tags": ["Assistant","Chat"]
+        },
+        {
+          "name": "Gemini",
+          "url": "https://gemini.google.com/",
+          "logo": "",
+          "desc": "Google’s assistant and family of models; integrates tightly with Google Cloud.",
+          "playsWith": ["Firebase","Google Cloud","Vercel"],
+          "tags": ["Assistant","Chat"]
+        },
+        {
+          "name": "Mistral Chat",
+          "url": "https://chat.mistral.ai/chat",
+          "logo": "",
+          "desc": "Mistral’s lightweight, fast models with a strong API story.",
+          "playsWith": ["OpenRouter","LangChain"],
+          "tags": ["Assistant","Chat"]
+        },
+        {
+          "name": "Grok",
+          "url": "https://grok.com/",
+          "logo": "",
+          "desc": "X’s assistant with real-time platform context; good for trending topics.",
+          "playsWith": ["OpenRouter"],
+          "tags": ["Assistant","Chat"]
+        },
+        {
+          "name": "Perplexity",
+          "url": "https://www.perplexity.ai/",
+          "logo": "",
+          "desc": "Research assistant with web-native retrieval and citations.",
+          "playsWith": ["Browser","Share Links"],
+          "tags": ["Research","Chat"]
+        },
+        {
+          "name": "Hugging Face",
+          "url": "https://huggingface.co/",
+          "logo": "",
+          "desc": "Model & dataset hub plus Inference Endpoints and Spaces for quick demos.",
+          "playsWith": ["Spaces","Gradio","Replicate"],
+          "tags": ["Models","Hosting"]
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/",
+          "logo": "",
+          "desc": "Source control, issues, actions, and Pages—your app’s home base.",
+          "playsWith": ["Actions","Pages","Copilot"],
+          "tags": ["Dev","Repo"]
+        }
+      ]
+    };
+
+    function domainFromUrl(u){
+      try{ return new URL(u).hostname; } catch(e){ return ""; }
+    }
+    function cardTemplate(item){
+      const domain = domainFromUrl(item.url);
+      const logo = item.logo && item.logo.trim().length
+        ? item.logo
+        : `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+
+      const plays = (item.playsWith||[]).map(p=>`<span class="chip" title="Plays well with ${p}">${p}</span>`).join("");
+      const tags = (item.tags||[]).map(t=>`<span class="chip" title="Tag">${t}</span>`).join("");
+
+      return `
+        <article class="card" data-name="${item.name.toLowerCase()}" data-tags="${(item.tags||[]).join(',').toLowerCase()}" data-plays="${(item.playsWith||[]).join(',').toLowerCase()}">
+          <div class="card-head">
+            <img src="${logo}" alt="${item.name} logo" loading="lazy" />
+            <a class="name" href="${item.url}" target="_blank" rel="noopener">${item.name}</a>
+            <a class="ext" href="${item.url}" target="_blank" aria-label="Open ${item.name}">↗</a>
+          </div>
+          <div class="desc">${item.desc}</div>
+          <div class="chips">${plays} ${tags}</div>
+        </article>
+      `;
+    }
+
+    function render(){
+      document.getElementById('category-title').textContent = categoryData.title;
+      document.getElementById('category-desc').textContent = categoryData.description;
+      const grid = document.getElementById('grid');
+      grid.innerHTML = categoryData.items.map(cardTemplate).join("");
+    }
+
+    // Simple client-side filter
+    const search = document.getElementById('q');
+    search.addEventListener('input', (e)=>{
+      const q = e.target.value.trim().toLowerCase();
+      const cards = Array.from(document.querySelectorAll('.card'));
+      for(const c of cards){
+        const match = [c.dataset.name, c.dataset.tags, c.dataset.plays].some(v => (v||'').includes(q));
+        c.style.display = (q==="" || match) ? "" : "none";
+      }
+    });
+
+    // Contrast toggle (switch to cream-on-black emphasis)
+    const btn = document.getElementById('toggleTheme');
+    let high = false;
+    btn.addEventListener('click', ()=>{
+      high = !high;
+      document.documentElement.style.setProperty('--text', high ? '#fff8e6' : '#f5f5f5');
+      document.documentElement.style.setProperty('--muted', high ? '#e9e1cf' : '#c8c8c8');
+      document.documentElement.style.setProperty('--card', high ? '#16181a' : '#141416');
+      document.documentElement.style.setProperty('--card-hover', high ? '#1f2125' : '#1b1c1f');
+    });
+
+    render();
+  </script>
+</body>
+</html>

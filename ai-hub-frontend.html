@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Hub — Frontend & Deployment</title>
+  <meta name="description" content="Category page for Frontend & Deployment platforms with descriptions and quick links." />
+  <style>
+    :root{
+      --giants-orange: #FD5A1E;
+      --giants-black: #27251F;
+      --giants-cream: #EFD19F;
+      --bg: #0f0f10;
+      --text: #f5f5f5;
+      --muted: #c8c8c8;
+      --card: #141416;
+      --card-hover: #1b1c1f;
+      --chip: #2a2b30;
+      --ring: rgba(253, 90, 30, 0.45);
+      --shadow: 0 8px 24px rgba(0,0,0,0.35);
+      --radius-xl: 22px;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #0f0f10, #0a0a0b 45%, #000 100%);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
+    header{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0 8px; border-bottom:1px solid #1f2023; margin-bottom:18px}
+    .brand{display:flex; align-items:center; gap:14px}
+    .logo{width:40px;height:40px; border-radius:12px; background: radial-gradient(60% 60% at 50% 30%, var(--giants-orange), #b43d0e); display:grid; place-items:center; color:#000; font-weight:800; box-shadow: 0 0 0 2px #000 inset, 0 6px 24px rgba(253,90,30,0.35)}
+    .title{font-size:22px; font-weight:800}
+    .subtitle{color:var(--muted); font-size:14px}
+    .btn{background:#111214; border:1px solid #1f2023; color:#eaeaea; padding:10px 14px; border-radius:12px; cursor:pointer; transition:.15s; box-shadow: var(--shadow)}
+    .btn:hover{transform:translateY(-1px); border-color:var(--giants-orange)}
+    .btn.primary{background:var(--giants-orange); color:#000; border-color:transparent}
+    .category{display:flex; flex-direction:column; gap:10px; margin:18px 0 24px}
+    .category h1{font-size:26px; margin:0; background: linear-gradient(90deg, var(--text), var(--giants-cream)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .category .desc{color:var(--muted)}
+    .grid{display:grid; grid-template-columns: repeat( auto-fill, minmax(270px, 1fr) ); gap:16px}
+    .card{background: var(--card); border:1px solid #22242a; border-radius: var(--radius-xl); padding:16px; display:flex; flex-direction:column; gap:12px; transition:.18s; box-shadow: var(--shadow)}
+    .card:hover{transform:translateY(-2px); background: var(--card-hover); border-color: var(--giants-orange)}
+    .card-head{display:flex; align-items:center; gap:12px}
+    .card-head img{width:28px; height:28px; border-radius:8px; background:#000; box-shadow:0 0 0 2px #0003}
+    .card-head .name{font-weight:700}
+    .card-head .ext{margin-left:auto; font-size:13px; color:var(--giants-cream)}
+    .desc{color:#d9d9d9; font-size:14px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{background: var(--chip); border:1px solid #2f3036; color:#e0e0e0; padding:6px 10px; border-radius:999px; font-size:12px}
+    .searchbar{position:relative; margin:10px 0 18px}
+    .searchbar input{width:100%; padding:12px 14px 12px 40px; background:#0e0f11; border:1px solid #1f2023; border-radius:14px; color:#eaeaea; outline:none}
+    .searchbar input:focus{border-color:var(--giants-orange); box-shadow:0 0 0 3px var(--ring)}
+    .searchbar .icon{position:absolute; left:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; opacity:.8}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="title">AI Hub</div>
+          <div class="subtitle">Curated links • Frontend & Deployment</div>
+        </div>
+      </div>
+      <div class="tools">
+        <button class="btn" id="toggleTheme">Contrast</button>
+        <a class="btn primary" href="./">Home</a>
+      </div>
+    </header>
+
+    <section class="category">
+      <h1 id="category-title">Frontend & Deployment</h1>
+      <p class="desc" id="category-desc">
+        Platforms to build, deploy, and scale modern frontends and full‑stack sites. Pick by framework support, serverless/edge needs, and region/perf.
+      </p>
+    </section>
+
+    <div class="searchbar">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <input id="q" placeholder="Filter by name, tag, or 'plays well with'… (e.g., Next.js, SvelteKit)" />
+    </div>
+
+    <main class="grid" id="grid"></main>
+
+    <div class="footer-note" style="margin-top:28px; color:#c8c8c8; font-size:13px; text-align:center">
+      Tip: Duplicate this file to create more categories. Data lives in <strong>categoryData</strong> below.
+    </div>
+  </div>
+
+  <script>
+    const categoryData = {
+      title: "Frontend & Deployment",
+      description: "Build, preview, and ship modern web apps with CDNs, serverless, and edge compute.",
+      items: [
+        {
+          "name": "Vercel",
+          "url": "https://vercel.com/docs",
+          "logo": "",
+          "desc": "Git-to-deploy, edge/serverless, preview deploys; first-class Next.js support.",
+          "playsWith": ["Next.js","Astro","SvelteKit","Remix"],
+          "tags": ["Edge","Serverless"]
+        },
+        {
+          "name": "Netlify",
+          "url": "https://docs.netlify.com/",
+          "logo": "",
+          "desc": "All‑in‑one CI/CD, static & SSR hosting; Edge Functions and forms.",
+          "playsWith": ["Next.js","Astro","Eleventy","SvelteKit"],
+          "tags": ["Edge","CI/CD"]
+        },
+        {
+          "name": "Cloudflare Pages",
+          "url": "https://developers.cloudflare.com/pages/",
+          "logo": "",
+          "desc": "Static & full‑stack on the Cloudflare edge; Pages Functions integrate with Workers.",
+          "playsWith": ["Workers","D1/R2","Next.js","Astro"],
+          "tags": ["Edge","Global CDN"]
+        },
+        {
+          "name": "Fly.io",
+          "url": "https://fly.io/docs/",
+          "logo": "",
+          "desc": "Run Dockerized apps close to users; Machines API, Postgres, GPUs.",
+          "playsWith": ["Docker","Rails/Django","Node","Phoenix"],
+          "tags": ["VMs","Global"]
+        },
+        {
+          "name": "Render",
+          "url": "https://render.com/docs",
+          "logo": "",
+          "desc": "PaaS for web services, static sites, cron jobs, PostgreSQL; Git auto‑deploys.",
+          "playsWith": ["Express/FastAPI","Docker","Postgres"],
+          "tags": ["PaaS","Managed"]
+        },
+        {
+          "name": "Railway",
+          "url": "https://docs.railway.com/",
+          "logo": "",
+          "desc": "Developer‑friendly PaaS with templates, services, and simple envs.",
+          "playsWith": ["Node/Python","Postgres","Redis"],
+          "tags": ["PaaS","DX"]
+        },
+        {
+          "name": "Firebase Hosting",
+          "url": "https://firebase.google.com/docs/hosting",
+          "logo": "",
+          "desc": "Production‑grade static/SPA hosting with global CDN; pair with Cloud Functions/Run.",
+          "playsWith": ["SPAs","Cloud Functions","Cloud Run"],
+          "tags": ["CDN","Google"]
+        },
+        {
+          "name": "AWS Amplify Hosting",
+          "url": "https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html",
+          "logo": "",
+          "desc": "Git‑based CI/CD for static and SSR frameworks on AWS’s global CDN.",
+          "playsWith": ["Next.js","React","Vue","Angular"],
+          "tags": ["AWS","CI/CD"]
+        },
+        {
+          "name": "Azure Static Web Apps",
+          "url": "https://learn.microsoft.com/en-us/azure/static-web-apps/",
+          "logo": "",
+          "desc": "Static sites + integrated serverless APIs with GitHub Actions or Azure DevOps.",
+          "playsWith": ["React/Vue/Angular","Blazor","Functions"],
+          "tags": ["Azure","Static"]
+        },
+        {
+          "name": "DigitalOcean App Platform",
+          "url": "https://docs.digitalocean.com/products/app-platform/",
+          "logo": "",
+          "desc": "Deploy apps & static sites without managing infra; simple pricing.",
+          "playsWith": ["Docker","Static sites","Managed DBs"],
+          "tags": ["PaaS","DO Cloud"]
+        },
+        {
+          "name": "GitHub Pages",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages",
+          "logo": "",
+          "desc": "Static site hosting direct from a GitHub repo; Jekyll support.",
+          "playsWith": ["Jekyll","Static sites","Actions"],
+          "tags": ["Static","Free tier"]
+        }
+      ]
+    };
+
+    function domainFromUrl(u){ try{ return new URL(u).hostname; } catch(e){ return ""; } }
+    function cardTemplate(item){
+      const domain = domainFromUrl(item.url);
+      const logo = item.logo && item.logo.trim().length
+        ? item.logo
+        : `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+      const plays = (item.playsWith||[]).map(p=>`<span class="chip" title="Plays well with ${p}">${p}</span>`).join("");
+      const tags = (item.tags||[]).map(t=>`<span class="chip">${t}</span>`).join("");
+
+      return `
+        <article class="card" data-name="${item.name.toLowerCase()}" data-tags="${(item.tags||[]).join(',').toLowerCase()}" data-plays="${(item.playsWith||[]).join(',').toLowerCase()}">
+          <div class="card-head">
+            <img src="${logo}" alt="${item.name} logo" loading="lazy" />
+            <a class="name" href="${item.url}" target="_blank" rel="noopener">${item.name}</a>
+            <a class="ext" href="${item.url}" target="_blank" aria-label="Open ${item.name}">↗</a>
+          </div>
+          <div class="desc">${item.desc}</div>
+          <div class="chips">${plays} ${tags}</div>
+        </article>
+      `;
+    }
+
+    function render(){
+      document.getElementById('category-title').textContent = categoryData.title;
+      document.getElementById('category-desc').textContent = categoryData.description;
+      const grid = document.getElementById('grid');
+      grid.innerHTML = categoryData.items.map(cardTemplate).join("");
+    }
+
+    // Search filter
+    document.addEventListener('input', (e)=>{
+      if(e.target && e.target.id==='q'){
+        const q = e.target.value.trim().toLowerCase();
+        const cards = Array.from(document.querySelectorAll('.card'));
+        cards.forEach(c => {
+          const match = [c.dataset.name, c.dataset.tags, c.dataset.plays].some(v => (v||'').includes(q));
+          c.style.display = (q==="" || match) ? "" : "none";
+        });
+      }
+    });
+
+    // Contrast toggle
+    document.getElementById('toggleTheme').addEventListener('click', ()=>{
+      const r = document.documentElement.style;
+      const isHigh = (r.getPropertyValue('--text')||'').trim() === '#fff8e6';
+      r.setProperty('--text', isHigh ? '#f5f5f5' : '#fff8e6');
+      r.setProperty('--muted', isHigh ? '#c8c8c8' : '#e9e1cf');
+      r.setProperty('--card', isHigh ? '#141416' : '#16181a');
+      r.setProperty('--card-hover', isHigh ? '#1b1c1f' : '#1f2125');
+    });
+
+    render();
+  </script>
+</body>
+</html>

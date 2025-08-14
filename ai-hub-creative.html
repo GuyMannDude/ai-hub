@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Hub — Creative (Image, Video & 3D)</title>
+  <meta name="description" content="Category page for Creative tools (Image, Video & 3D) with descriptions and quick links." />
+  <style>
+    :root{
+      --giants-orange: #FD5A1E;
+      --giants-black: #27251F;
+      --giants-cream: #EFD19F;
+      --bg: #0f0f10;
+      --text: #f5f5f5;
+      --muted: #c8c8c8;
+      --card: #141416;
+      --card-hover: #1b1c1f;
+      --chip: #2a2b30;
+      --ring: rgba(253, 90, 30, 0.45);
+      --shadow: 0 8px 24px rgba(0,0,0,0.35);
+      --radius-xl: 22px;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #0f0f10, #0a0a0b 45%, #000 100%);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
+    header{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0 8px; border-bottom:1px solid #1f2023; margin-bottom:18px}
+    .brand{display:flex; align-items:center; gap:14px}
+    .logo{width:40px;height:40px; border-radius:12px; background: radial-gradient(60% 60% at 50% 30%, var(--giants-orange), #b43d0e); display:grid; place-items:center; color:#000; font-weight:800; box-shadow: 0 0 0 2px #000 inset, 0 6px 24px rgba(253,90,30,0.35)}
+    .title{font-size:22px; font-weight:800}
+    .subtitle{color:var(--muted); font-size:14px}
+    .btn{background:#111214; border:1px solid #1f2023; color:#eaeaea; padding:10px 14px; border-radius:12px; cursor:pointer; transition:.15s; box-shadow: var(--shadow)}
+    .btn:hover{transform:translateY(-1px); border-color:var(--giants-orange)}
+    .btn.primary{background:var(--giants-orange); color:#000; border-color:transparent}
+    .category{display:flex; flex-direction:column; gap:10px; margin:18px 0 24px}
+    .category h1{font-size:26px; margin:0; background: linear-gradient(90deg, var(--text), var(--giants-cream)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .category .desc{color:var(--muted)}
+    .grid{display:grid; grid-template-columns: repeat( auto-fill, minmax(270px, 1fr) ); gap:16px}
+    .card{background: var(--card); border:1px solid #22242a; border-radius: var(--radius-xl); padding:16px; display:flex; flex-direction:column; gap:12px; transition:.18s; box-shadow: var(--shadow)}
+    .card:hover{transform:translateY(-2px); background: var(--card-hover); border-color: var(--giants-orange)}
+    .card-head{display:flex; align-items:center; gap:12px}
+    .card-head img{width:28px; height:28px; border-radius:8px; background:#000; box-shadow:0 0 0 2px #0003}
+    .card-head .name{font-weight:700}
+    .card-head .ext{margin-left:auto; font-size:13px; color:var(--giants-cream)}
+    .desc{color:#d9d9d9; font-size:14px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{background: var(--chip); border:1px solid #2f3036; color:#e0e0e0; padding:6px 10px; border-radius:999px; font-size:12px}
+    .searchbar{position:relative; margin:10px 0 18px}
+    .searchbar input{width:100%; padding:12px 14px 12px 40px; background:#0e0f11; border:1px solid #1f2023; border-radius:14px; color:#eaeaea; outline:none}
+    .searchbar input:focus{border-color:var(--giants-orange); box-shadow:0 0 0 3px var(--ring)}
+    .searchbar .icon{position:absolute; left:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; opacity:.8}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="title">AI Hub</div>
+          <div class="subtitle">Curated links • Creative (Image, Video & 3D)</div>
+        </div>
+      </div>
+      <div class="tools">
+        <button class="btn" id="toggleTheme">Contrast</button>
+        <a class="btn primary" href="./">Home</a>
+      </div>
+    </header>
+
+    <section class="category">
+      <h1 id="category-title">Creative — Image, Video & 3D</h1>
+      <p class="desc" id="category-desc">
+        Generation and editing tools across image, video, and 3D. Mix local-first (SDXL, ComfyUI) with hosted services (Runway, Pika, Luma) and AI-to-3D pipelines (Meshy, Tripo3D).
+      </p>
+    </section>
+
+    <div class="searchbar">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <input id="q" placeholder="Filter by name, tag, or 'plays well with'… (e.g., ComfyUI, Meshy)" />
+    </div>
+
+    <main class="grid" id="grid"></main>
+
+    <div class="footer-note" style="margin-top:28px; color:#c8c8c8; font-size:13px; text-align:center">
+      Tip: Duplicate this file to create more categories. Data lives in <strong>categoryData</strong> below.
+    </div>
+  </div>
+
+  <script>
+    const categoryData = {
+      title: "Creative — Image, Video & 3D",
+      description: "Mix local-first diffusion UIs, hosted video tools, and AI-to-3D pipelines.",
+      items: [
+        {
+          "name": "Stable Diffusion web UI (AUTOMATIC1111)",
+          "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+          "logo": "",
+          "desc": "Gradio-based SD/SDXL UI; huge extension ecosystem; local-first.",
+          "playsWith": ["SDXL","ControlNet","ComfyUI (alt)"],
+          "tags": ["Image","Local"]
+        },
+        {
+          "name": "ComfyUI",
+          "url": "https://github.com/comfyanonymous/ComfyUI",
+          "logo": "",
+          "desc": "Node-graph engine for Stable Diffusion pipelines; desktop app available.",
+          "playsWith": ["SDXL","ComfyUI-Manager","ControlNet"],
+          "tags": ["Image","Local","Visual"]
+        },
+        {
+          "name": "SDXL (Stable Diffusion XL)",
+          "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0",
+          "logo": "",
+          "desc": "Next‑gen text-to-image model; base + refiner pipeline; higher fidelity.",
+          "playsWith": ["A1111","ComfyUI","ControlNet"],
+          "tags": ["Model","Image"]
+        },
+        {
+          "name": "Fooocus",
+          "url": "https://github.com/lllyasviel/Fooocus",
+          "logo": "",
+          "desc": "Simplified SD UI focused on prompting; minimal setup; low-GPU friendly.",
+          "playsWith": ["SDXL","Local GPUs"],
+          "tags": ["Image","Local"]
+        },
+        {
+          "name": "Runway (Gen‑3)",
+          "url": "https://runwayml.com/research/introducing-gen-3-alpha",
+          "logo": "",
+          "desc": "Text/Image‑to‑Video foundation model; improved motion and fidelity.",
+          "playsWith": ["Storyboards","Editing Suites"],
+          "tags": ["Video","Hosted"]
+        },
+        {
+          "name": "Pika",
+          "url": "https://pika.art/",
+          "logo": "",
+          "desc": "Idea‑to‑video platform with styles, effects, and edit tools.",
+          "playsWith": ["Storyboards","Image Prompts"],
+          "tags": ["Video","Hosted"]
+        },
+        {
+          "name": "Luma Dream Machine",
+          "url": "https://lumalabs.ai/dream-machine",
+          "logo": "",
+          "desc": "High‑fidelity text/image‑to‑video; iOS and web apps available.",
+          "playsWith": ["Storyboards","Reference Images"],
+          "tags": ["Video","Hosted"]
+        },
+        {
+          "name": "Krea",
+          "url": "https://www.krea.ai/",
+          "logo": "",
+          "desc": "Realtime canvas + image & video generation tools; upscaler & enhancer.",
+          "playsWith": ["Runway","Pika","Luma"],
+          "tags": ["Image","Video","Hosted"]
+        },
+        {
+          "name": "Leonardo AI",
+          "url": "https://leonardo.ai/",
+          "logo": "",
+          "desc": "Creator‑focused image/video suite; fine‑tune styles and assets.",
+          "playsWith": ["Canva","Game Assets"],
+          "tags": ["Image","Video","Hosted"]
+        },
+        {
+          "name": "Stable Video Diffusion (SVD)",
+          "url": "https://stability.ai/stable-video",
+          "logo": "",
+          "desc": "Image‑to‑video model based on SD; research/SDK options available.",
+          "playsWith": ["A1111 Extensions","ComfyUI Nodes"],
+          "tags": ["Video","Model"]
+        },
+        {
+          "name": "Meshy (Text‑to‑3D)",
+          "url": "https://www.meshy.ai/features/text-to-3d",
+          "logo": "",
+          "desc": "Text/Image‑to‑3D with texture workflows and export to common formats.",
+          "playsWith": ["Blender","Unity","Unreal"],
+          "tags": ["3D","Hosted"]
+        },
+        {
+          "name": "Tripo3D",
+          "url": "https://www.tripo3d.ai/",
+          "logo": "",
+          "desc": "Text/Image/Doodle‑to‑3D with PBR materials; rapid generation.",
+          "playsWith": ["GLB/FBX/OBJ/USD","Game Engines"],
+          "tags": ["3D","Hosted"]
+        },
+        {
+          "name": "Nerfstudio",
+          "url": "https://docs.nerf.studio/",
+          "logo": "",
+          "desc": "Open‑source NeRF toolkit for training/reconstruction from photos/video.",
+          "playsWith": ["Colmap","Gaussian Splatting","Blender"],
+          "tags": ["3D","OSS"]
+        },
+        {
+          "name": "Polycam",
+          "url": "https://poly.cam/",
+          "logo": "",
+          "desc": "Cross‑platform LiDAR + photogrammetry capture; export to major 3D formats.",
+          "playsWith": ["Blender","Maya","Unreal","Revit"],
+          "tags": ["3D","Capture"]
+        }
+      ]
+    };
+
+    function domainFromUrl(u){ try{ return new URL(u).hostname; } catch(e){ return ""; } }
+    function cardTemplate(item){
+      const domain = domainFromUrl(item.url);
+      const logo = item.logo && item.logo.trim().length
+        ? item.logo
+        : `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+      const plays = (item.playsWith||[]).map(p=>`<span class="chip" title="Plays well with ${p}">${p}</span>`).join("");
+      const tags = (item.tags||[]).map(t=>`<span class="chip">${t}</span>`).join("");
+
+      return `
+        <article class="card" data-name="${item.name.toLowerCase()}" data-tags="${(item.tags||[]).join(',').toLowerCase()}" data-plays="${(item.playsWith||[]).join(',').toLowerCase()}">
+          <div class="card-head">
+            <img src="${logo}" alt="${item.name} logo" loading="lazy" />
+            <a class="name" href="${item.url}" target="_blank" rel="noopener">${item.name}</a>
+            <a class="ext" href="${item.url}" target="_blank" aria-label="Open ${item.name}">↗</a>
+          </div>
+          <div class="desc">${item.desc}</div>
+          <div class="chips">${plays} ${tags}</div>
+        </article>
+      `;
+    }
+
+    function render(){
+      document.getElementById('category-title').textContent = categoryData.title;
+      document.getElementById('category-desc').textContent = categoryData.description;
+      const grid = document.getElementById('grid');
+      grid.innerHTML = categoryData.items.map(cardTemplate).join("");
+    }
+
+    // Search filter
+    document.addEventListener('input', (e)=>{
+      if(e.target && e.target.id==='q'){
+        const q = e.target.value.trim().toLowerCase();
+        const cards = Array.from(document.querySelectorAll('.card'));
+        cards.forEach(c => {
+          const match = [c.dataset.name, c.dataset.tags, c.dataset.plays].some(v => (v||'').includes(q));
+          c.style.display = (q==="" || match) ? "" : "none";
+        });
+      }
+    });
+
+    // Contrast toggle
+    document.getElementById('toggleTheme').addEventListener('click', ()=>{
+      const r = document.documentElement.style;
+      const isHigh = (r.getPropertyValue('--text')||'').trim() === '#fff8e6';
+      r.setProperty('--text', isHigh ? '#f5f5f5' : '#fff8e6');
+      r.setProperty('--muted', isHigh ? '#c8c8c8' : '#e9e1cf');
+      r.setProperty('--card', isHigh ? '#141416' : '#16181a');
+      r.setProperty('--card-hover', isHigh ? '#1b1c1f' : '#1f2125');
+    });
+
+    render();
+  </script>
+</body>
+</html>
